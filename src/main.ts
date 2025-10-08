@@ -7,6 +7,8 @@ import { TransformInterceptor } from './interceptors/transform.interceptor';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.enableCors();
+
   // Глобальная валидация
   app.useGlobalPipes(
     new ValidationPipe({
@@ -25,11 +27,16 @@ async function bootstrap() {
     new TransformInterceptor()
   );
 
-  // CORS для React фронтенда
+  // CORS для Postman и React
   app.enableCors({
-    origin: ['http://localhost:3000'],
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-    credentials: true
+    origin: [
+      'http://localhost:3000', // React
+      'https://www.postman.com', // Postman web
+      '*', // Для Desktop Postman
+    ],
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'],
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
   });
 
   // Swagger документация
@@ -44,4 +51,8 @@ async function bootstrap() {
 
   await app.listen(process.env.PORT ?? 3000);
 }
-bootstrap();
+// Handle the promise properly
+bootstrap().catch(error => {
+  console.error('Failed to start application:', error);
+  process.exit(1);
+});

@@ -1,49 +1,32 @@
-import {
-  IsEmail,
-  IsString,
-  IsNumber,
-  IsBoolean,
-  IsOptional,
-  MinLength,
-  IsUrl,
-  IsPositive
-} from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+// src/users/dto/create-user.dto.ts
+import { IsEmail, IsNotEmpty, IsOptional, IsBoolean, IsString } from 'class-validator';
 
 export class CreateUserDto {
-  @ApiProperty({ example: 'user@example.com' })
   @IsEmail()
   email: string;
 
-  @ApiProperty({ example: 79991234567 })
-  @IsNumber()
-  @IsPositive()
-  phone: number;
+  @IsNotEmpty()
+  phone: string;
 
-  @ApiProperty({ example: 'Иван' })
-  @IsString()
-  @MinLength(2)
+  @IsNotEmpty()
+  passwordHash: string;
+
   @IsOptional()
-  first_name?: string;
-
-  @ApiProperty({ example: 'Петров' })
   @IsString()
-  @MinLength(2)
-  @IsOptional()
-  last_name?: string;
+  firstName?: string;
 
-  @ApiProperty({ example: 'https://example.com/avatar.jpg', required: false })
-  @IsUrl()
   @IsOptional()
-  avatar_url?: string;
-
-  @ApiProperty({ example: 'password123' })
   @IsString()
-  @MinLength(6)
-  password: string;
+  lastName?: string;
 
-  @ApiProperty({ example: true, required: false })
+  @IsOptional()
+  @IsString()
+  avatarUrl?: string;
+
+  @IsOptional()
   @IsBoolean()
+  isActive?: boolean;
+
   @IsOptional()
-  is_active?: boolean;
+  lastLogin?: Date;
 }
