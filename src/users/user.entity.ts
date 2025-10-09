@@ -5,6 +5,8 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { ManyToMany, JoinTable } from 'typeorm';
+import { Role } from '../roles/entities/role.entity';
 
 @Entity({ name: 'users' })
 export class User {
@@ -40,4 +42,14 @@ export class User {
 
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
   updatedAt: Date;
+
+  @ManyToMany(() => Role, (role) => role.users, { cascade: true })
+  @JoinTable({
+    name: 'user_roles',
+    joinColumn: { name: 'user_id', referencedColumnName: 'user_id' },
+    inverseJoinColumn: { name: 'role_id', referencedColumnName: 'role_id' },
+  })
+  roles: Role[];
 }
+
+

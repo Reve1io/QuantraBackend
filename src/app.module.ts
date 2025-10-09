@@ -7,6 +7,8 @@ import { HealthModule } from './health/health.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
+import { RolesModule } from './roles/roles.module';
+import { TeamModule } from './team/team.module';
 
 @Module({
   imports: [
@@ -23,6 +25,8 @@ import { JwtModule } from '@nestjs/jwt';
         signOptions: { expiresIn: '1d' },
       }),
     }),
+    RolesModule,
+    TeamModule,
   ],
   controllers: [AppController],
   providers: [AppService]
