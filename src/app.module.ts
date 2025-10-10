@@ -11,6 +11,8 @@ import { RolesModule } from './roles/roles.module';
 import { TeamModule } from './team/team.module';
 import { UserRolesModule } from './user-roles/user-roles.module';
 import { ProjectsModule } from './projects/projects.module';
+import { TasksModule } from './tasks/tasks.module';
+import { TaskStatusModule } from './task-status/task-status.module';
 
 @Module({
   imports: [
@@ -31,6 +33,8 @@ import { ProjectsModule } from './projects/projects.module';
     TeamModule,
     UserRolesModule,
     ProjectsModule,
+    TasksModule,
+    TaskStatusModule,
   ],
   controllers: [AppController],
   providers: [AppService]

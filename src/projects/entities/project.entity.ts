@@ -6,9 +6,11 @@ import {
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
 import { User } from '../../users/user.entity';
 import { Team } from '../../team/entities/team.entity';
+import { Task } from '../../tasks/entities/task.entity';
 
 @Entity('projects')
 export class Project {
@@ -47,4 +49,8 @@ export class Project {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  // 👇 Добавь это поле для связи с задачами
+  @OneToMany(() => Task, (task) => task.project)
+  tasks: Task[];
 }
