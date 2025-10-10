@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Patch,
+  Delete,
+} from '@nestjs/common';
 import { TaskStatusService } from './task-status.service';
 import { CreateTaskStatusDto } from './dto/create-task-status.dto';
 import { UpdateTaskStatusDto } from './dto/update-task-status.dto';
@@ -8,8 +16,8 @@ export class TaskStatusController {
   constructor(private readonly taskStatusService: TaskStatusService) {}
 
   @Post()
-  create(@Body() createTaskStatusDto: CreateTaskStatusDto) {
-    return this.taskStatusService.create(createTaskStatusDto);
+  create(@Body() dto: CreateTaskStatusDto) {
+    return this.taskStatusService.create(dto);
   }
 
   @Get()
@@ -18,17 +26,17 @@ export class TaskStatusController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.taskStatusService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTaskStatusDto: UpdateTaskStatusDto) {
-    return this.taskStatusService.update(+id, updateTaskStatusDto);
+  update(@Param('id') id: number, @Body() dto: UpdateTaskStatusDto) {
+    return this.taskStatusService.update(+id, dto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.taskStatusService.remove(+id);
   }
 }
