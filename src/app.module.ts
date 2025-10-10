@@ -13,6 +13,7 @@ import { UserRolesModule } from './user-roles/user-roles.module';
 import { ProjectsModule } from './projects/projects.module';
 import { TasksModule } from './tasks/tasks.module';
 import { TaskStatusModule } from './task-status/task-status.module';
+import { TaskCommentsModule } from './task-comments/task-comments.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { TaskStatusModule } from './task-status/task-status.module';
     ProjectsModule,
     TasksModule,
     TaskStatusModule,
+    TaskCommentsModule,
   ],
   controllers: [AppController],
   providers: [AppService]

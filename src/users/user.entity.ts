@@ -9,6 +9,7 @@ import { ManyToMany, JoinTable, OneToMany } from 'typeorm';
 import { Role } from '../roles/entities/role.entity';
 import { UserRole} from '../user-roles/entities/user-role.entity';
 import { Project } from '../projects/entities/project.entity';
+import { TaskComment} from '../task-comments/entities/task-comment.entity';
 
 @Entity({ name: 'users' })
 export class User {
@@ -58,6 +59,9 @@ export class User {
 
   @OneToMany(() => Project, (project) => project.created_by)
   createdProjects: Project[];
+
+  @OneToMany(() => TaskComment, (comment) => comment.user)
+  comments: TaskComment[];
 }
 
 

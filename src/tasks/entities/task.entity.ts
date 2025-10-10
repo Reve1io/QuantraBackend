@@ -6,10 +6,12 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 import { User } from 'src/users/user.entity';
 import { Project } from 'src/projects/entities/project.entity';
 import { TaskStatus } from 'src/task-status/entities/task-status.entity';
+import { TaskComment} from '../../task-comments/entities/task-comment.entity';
 
 @Entity('tasks')
 export class Task {
@@ -55,5 +57,8 @@ export class Task {
 
   @UpdateDateColumn({ type: 'timestamptz' })
   updated_at: Date;
+
+  @OneToMany(() => TaskComment, (comment) => comment.task)
+  comments: TaskComment[];
 }
 
