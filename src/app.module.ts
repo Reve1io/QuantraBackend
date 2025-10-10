@@ -9,6 +9,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { RolesModule } from './roles/roles.module';
 import { TeamModule } from './team/team.module';
+import { UserRolesModule } from './user-roles/user-roles.module';
+import { ProjectsModule } from './projects/projects.module';
 
 @Module({
   imports: [
@@ -27,6 +29,8 @@ import { TeamModule } from './team/team.module';
     }),
     RolesModule,
     TeamModule,
+    UserRolesModule,
+    ProjectsModule,
   ],
   controllers: [AppController],
   providers: [AppService]

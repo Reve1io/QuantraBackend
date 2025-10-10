@@ -27,6 +27,12 @@ export class RolesService {
     return role;
   }
 
+  async findById(role_id: number): Promise<Role> {
+    const role = await this.roleRepo.findOne({ where: { role_id } });
+    if (!role) throw new NotFoundException(`Role with id ${role_id} not found`);
+    return role;
+  }
+
   async update(id: number, dto: UpdateRoleDto): Promise<Role> {
     const role = await this.findOne(id);
     Object.assign(role, dto);

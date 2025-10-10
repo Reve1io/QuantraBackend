@@ -5,8 +5,10 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { ManyToMany, JoinTable } from 'typeorm';
+import { ManyToMany, JoinTable, OneToMany } from 'typeorm';
 import { Role } from '../roles/entities/role.entity';
+import { UserRole} from '../user-roles/entities/user-role.entity';
+import { Project } from '../projects/entities/project.entity';
 
 @Entity({ name: 'users' })
 export class User {
@@ -50,6 +52,12 @@ export class User {
     inverseJoinColumn: { name: 'role_id', referencedColumnName: 'role_id' },
   })
   roles: Role[];
+
+  @OneToMany(() => UserRole, (userRole) => userRole.user)
+  userRoles: UserRole[];
+
+  @OneToMany(() => Project, (project) => project.created_by)
+  createdProjects: Project[];
 }
 
 

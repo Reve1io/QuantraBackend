@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { User } from '../../users/user.entity';
 import { TeamMember } from './team-member.entity';
+import { Project} from '../../projects/entities/project.entity';
 
 @Entity('teams')
 export class Team {
@@ -30,4 +31,7 @@ export class Team {
 
   @OneToMany(() => TeamMember, (member) => member.team, { cascade: true })
   members: TeamMember[];
+
+  @OneToMany(() => Project, (project) => project.team)
+  projects: Project[];
 }

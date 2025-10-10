@@ -38,6 +38,12 @@ export class UsersService {
     return this.userRepo.findOne({ where: { email } });
   }
 
+  async findById(user_id: string): Promise<User> {
+    const user = await this.userRepo.findOne({ where: { user_id } });
+    if (!user) throw new NotFoundException(`User with id ${user_id} not found`);
+    return user;
+  }
+
   async update(id: string, dto: UpdateUserDto): Promise<User> {
     const user = await this.findOne(id);
     Object.assign(user, dto);
