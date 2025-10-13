@@ -1,39 +1,47 @@
-name: 🚀 Deploy NestJS to Server
+name: Deploy NestJS to Server
 
 on:
   push:
     branches:
-      - master  # 🚀 деплой при пуше в master #
+      - master  # ветка, при пуше в которую происходит деплой
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: 🧭 Checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: ⚙️ Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: 🧪 Install dependencies
-        run: npm ci
-
-      - name: 🧱 Build project
-        run: npm run build
-
-      - name: 🚀 Deploy to server via SSH
+      - name: Deploy to server via SSH
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /home/QuantraBackend
-            git pull origin master
-            npm ci --omit=dev
-            npm run build
-            pm2 restart quantra-backend --interpreter $(which node) --update-env
+            echo "Подгружаем nvm..."
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
+            echo "Используем Node 22.20.0"
+            nvm use 22.20.0
+
+            cd /home/QuantraBackend || exit
+
+            echo "Обновляем репозиторий"
+            git fetch origin master
+            git reset --hard origin/master
+
+            echo "Устанавливаем зависимости"
+            npm ci --omit=dev
+
+            echo "Собираем проект"
+            npm run build
+
+            echo "Перезапускаем PM2"
+            pm2 restart quantra-backend --interpreter $(which node) --update-env || \
+            pm2 start dist/main.js --name "quantra-backend" --interpreter $(which node) --update-env
+
+            pm2 save
+
+            echo "✅ Деплой завершён"
