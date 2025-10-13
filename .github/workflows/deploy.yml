@@ -3,7 +3,7 @@ name: 🚀 Deploy NestJS to Server
 on:
   push:
     branches:
-      - master  # 🚀 деплой при пуше в main
+      - master  # 🚀 деплой при пуше в master
 
 jobs:
   deploy:
@@ -35,4 +35,4 @@ jobs:
             git pull origin main
             npm ci --omit=dev
             npm run build
-            pm2 restart nestjs-app --update-env
+            pm2 restart quantra-backend --update-env
