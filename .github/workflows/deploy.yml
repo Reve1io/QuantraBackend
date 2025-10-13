@@ -35,4 +35,4 @@ jobs:
             git pull origin main
             npm ci --omit=dev
             npm run build
-            pm2 restart quantra-backend --update-env
+            pm2 restart nestjs-app --update-env
