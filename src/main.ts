@@ -32,7 +32,7 @@ async function bootstrap() {
     origin: [
       'http://localhost:3000', // React
       'https://www.postman.com', // Postman web
-      '*', // Для Desktop Postma
+      '*', // Для Desktop Postman
     ],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'],
     credentials: true,
