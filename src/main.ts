@@ -26,7 +26,7 @@ async function bootstrap() {
     new ClassSerializerInterceptor(app.get(Reflector)),
     new TransformInterceptor()
   );
-
+  // test comment
   // CORS для Postman и React
   app.enableCors({
     origin: [
