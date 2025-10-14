@@ -27,7 +27,7 @@ jobs:
 
       - name: 📦 Archive production build
         run: |
-          tar -czf quantra-backend.tar.gz dist package.json package-lock.json .env
+          tar -czf quantra-backend.tar.gz dist package.json package-lock.json
 
       - name: 🚀 Deploy to server via SSH
         uses: appleboy/scp-action@v0.1.4
