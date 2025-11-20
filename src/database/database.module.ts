@@ -10,7 +10,7 @@ import 'dotenv/config';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        host: configService.get('DB_HOST', 'localhost'),
+        host: configService.get('DB_HOST', '158.255.6.247'),
         port: configService.get('DB_PORT', 5432),
         username: configService.get('DB_USERNAME', 'flawyadmin'),
         password: configService.get('DB_PASSWORD', 'romanov9653'),
