@@ -10,18 +10,18 @@ import 'dotenv/config';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        host: configService.get('DB_HOST', '158.255.6.247'),
+        host: configService.get('DB_HOST'),
         port: configService.get('DB_PORT', 5432),
-        username: configService.get('DB_USERNAME', 'flawyadmin'),
-        password: configService.get('DB_PASSWORD', 'romanov9653'),
-        database: configService.get('DB_NAME', 'quantra_db'),
+        username: configService.get('DB_USERNAME'),
+        password: configService.get('DB_PASSWORD'),
+        database: configService.get('DB_NAME'),
         entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-        synchronize: configService.get('DB_SYNCHRONIZE', false), // false для production
+        synchronize: configService.get('DB_SYNCHRONIZE', false),
         logging: configService.get('DB_LOGGING', true),
         ssl: true,
         extra: {
           ssl: {
-            rejectUnauthorized: false, // ⚠️ Нужно для Supabase
+            rejectUnauthorized: false,
             require: true
           }
         }
